@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% import "bootstrap/utils.html" as utils %}
+
+{% block page_title %} Home {% endblock %}
+
+{% block container %}
+<h1>Example Flask Application</h1>
+<h2>
+    {% if current_user %}
+        Welcome {{ current_user.name }}
+    {% else %}
+        Welcome to the Our Website
+    {% endif  %}
+</h2>
+<p> 
+    {% if current_user.role == "admin" %}
+    <div class="d-flex flex-row justify-content-between">
+        <h1>User Managment</h1>
+
+        <a class="nav-item nav-link {% if request.path == url_for('user.delete') %}active{% endif %}" href="{{ url_for('user.delete') }}">
+            Delete User
+        </a>
+
+        <a class="nav-item nav-link {% if request.path == url_for('auth.delete') %}active{% endif %}" href="{{ url_for('auth.delete') }}">
+        Delete Author
+        </a>
+
+        <a class="nav-item nav-link {% if request.path == url_for('user.promotetoAdmin') %}active{% endif %}" href="{{ url_for('user.promotetoAdmin') }}">
+            Promote to Admin
+        </a>
+
+        <a class="nav-item nav-link {% if request.path == url_for('auth.promotetoAuthor') %}active{% endif %}" href="{{ url_for('auth.promotetoAuthor') }}">
+            Promote to Author
+        </a>
+    </div>
+
+    {% endif %}
+</p>
+{% endblock %}
